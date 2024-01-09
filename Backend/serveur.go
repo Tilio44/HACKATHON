@@ -33,6 +33,8 @@ func actuHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fs := http.FileServer(http.Dir("../Front/assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	fmt.Println("http://localhost:8080")
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/actu", actuHandler)
