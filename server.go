@@ -4,10 +4,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
-	"math/rand"
 	"net/http"
-	"time"
 )
 
 var (
@@ -61,33 +60,17 @@ func server() {
 }
 
 func displayPosts(w http.ResponseWriter) {
-	fmt.Fprintf(w, `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
-    <link rel="stylesheet" href="post.css">
-</head>
-<body>
-    <h1>Liste des posts:</h1>
-`)
-
-	for _, post := range Posts {
-		fmt.Fprintf(w, `
-    <div class="post">
-        <h2>%s</h2>
-        <p>%s</p>
-        <small>Author: %s | Date: %s</small>
-    </div>
-`, post.Title, post.Content, post.Author, post.Date)
+	tmpl, err := template.ParseFiles("index.html")
+	if err != nil {
+		fmt.Println("Erreur lors du rendu du template HTML :", err)
+		return
 	}
 
-	fmt.Fprintf(w, `
-</body>
-</html>
-`)
+	err = tmpl.Execute(w, struct{ Posts []Post }{Posts})
+	if err != nil {
+		fmt.Println("Erreur lors de l'exécution du template HTML :", err)
+		return
+	}
 }
 
 func addPost(w http.ResponseWriter, r *http.Request) {
@@ -110,42 +93,10 @@ func addPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Post ajouté avec succès:\nTitle: %s\nContent: %s\nDate: %s\n", title, content, date)
 }
 
-func generateRandomPosts(numPosts int) {
-	rand.Seed(time.Now().UnixNano())
-
-	for i := 0; i < numPosts; i++ {
-		author := generateRandomString(8)
-		title := generateRandomString(10)
-		content := generateRandomString(50)
-		date := time.Now().Format("2006-01-02")
-
-		newPost := Post{
-			Author:  author,
-			Title:   title,
-			Content: content,
-			Date:    date,
-		}
-
-		Posts = append(Posts, newPost)
-	}
-}
-
-func generateRandomString(length int) string {
-	rand.Seed(time.Now().UnixNano())
-	charset := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	result := make([]byte, length)
-	for i := range result {
-		result[i] = charset[rand.Intn(len(charset))]
-	}
-	return string(result)
-}
-
 func main() {
 	server()
 
-	// Générer 5 posts aléatoires au démarrage du serveur
-	generateRandomPosts(5)
+    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
-	// Sauvegarder les posts générés dans le fichier JSON
 	savePostsToFile()
 }
