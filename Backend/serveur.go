@@ -1,32 +1,62 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"html/template"
 	"net/http"
+	"path/filepath"
 )
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, "home.html")
+func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
+	var myCache, err = createTemplateCache()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	t, ok := myCache[tmpl]
+	if !ok {
+		fmt.Println("Could not get template from cache")
+	}
+
+	buffer := new(bytes.Buffer)
+	t.Execute(buffer, p)
+	buffer.WriteTo(w)
 }
 
-func homeCSSHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/home.css")
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	renderTemplate(w, "home.page.html", nil)
 }
 
 func actuHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/actu.html")
-}
-
-func actuCSSHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "static/actu.css")
+	renderTemplate(w, "homeActu.page.html", nil)
 }
 
 func main() {
-	http.HandleFunc("/home", homeHandler)
-	http.HandleFunc("/home.css", homeCSSHandler)
+	fmt.Println("http://localhost:8080")
+	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/actu", actuHandler)
-	http.HandleFunc("/actu.css", actuCSSHandler)
-
-	fmt.Println("Serveur démarré sur le port : 8080")
 	http.ListenAndServe(":8080", nil)
+}
+
+func createTemplateCache() (map[string]*template.Template, error) {
+	myCache := map[string]*template.Template{}
+
+	pages, err := filepath.Glob("../Front/Page/*.page.html")
+	if err != nil {
+		return myCache, err
+	}
+
+	for _, page := range pages {
+		name := filepath.Base(page)
+
+		ts, err := template.ParseFiles(page)
+		if err != nil {
+			return myCache, err
+		}
+
+		myCache[name] = ts
+	}
+
+	return myCache, nil
 }
