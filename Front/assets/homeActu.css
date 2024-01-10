@@ -4,8 +4,17 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-
+#random-number {
+    font-family: Arial, sans-serif; 
+    position: absolute;
+    color: white;
+    top: 50%;
+    left: 10%;
+    font-size: 40px; 
+    transform: translateY(-50%);
+}
 #date-time {
+    font-family: Arial, sans-serif; 
     font-size: 40px; 
     position: absolute;
     top: 50%; 
