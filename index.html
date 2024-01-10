@@ -34,16 +34,13 @@
     </head>
 </head>
 <body>
-    <!-- <h1>Liste des posts:</h1>
 
     {{range .Posts}}
     <div class="post">
-        <h2>{{.Title}}</h2>
-        <p>{{.Content}}</p>
-        <small>Author: {{.Author}} | Date: {{.Date}}</small>
-    </div>
-    {{end}}
- -->
+        <!-- <h2>{{.Title}}</h2> -->
+        <!-- <p>{{.Content}}</p> -->
+        <!-- <small>Author: {{.Author}} | Date: {{.Date}}</small> -->
+
 <nav class="navbar navbar-default">
             <div class="container ynov-header">
         <div class="nav navbar-nav navbar-brand ">
@@ -73,22 +70,19 @@
     <div class='card'>
       <header class='cardHeader'>
         <i class='fab fa-instagram cardHeader_type'></i>
-        <span class='cardHeader_account'>@Actualité aléatoire</span>
-        <span class='cardHeader_date'>Jul 6 11:26</span>
+        <span class='cardHeader_account'><h5>{{.Title}}</h5><small> {{.Author}} |</span>
+        <span class='cardHeader_date'>{{.Date}}</small>
+        </span>
       </header>
       <div class='cardBody'>
-        <p class='cardText'>Ferret : la nouvelle arme secrète d'Apple dans l’intelligence artificielle ?
-            
-            Plutôt que d'essuyer les plâtres, Apple peaufine tranquillement ses outils d'intelligence artificielle et l'aboutissement ne saurait tarder. La firme à la pomme travaille sur un modèle de langage multimodal qui s'intègrera dans l'environnement Mac et iPhone, ce qui devrait être l'objet de la prochaine conférence en juin prochain.
-
-          <span class='cardText_highlight'>lire la suite : https://www.futura-sciences.com/tech/actualites/apple-ferret-nouvelle-arme-secrete-apple-intelligence-artificielle-110536/</span>
+        <p class='cardText'><p>{{.Content}}</p>
         </p>
         <section class='cardStats'>
           </span>
       </div>
     </div>
   
-    <div class='card'>
+    <!-- <div class='card'>
       <header class='cardHeader'>
         <i class='fab fa-facebook-f cardHeader_type'></i>
         <span class='cardHeader_account'>@Actualité du jour</span>
@@ -113,11 +107,13 @@
         <p class='cardText'>Prof. David Rodriguez - Spécialiste en sécurité informatique
         </div>
     </div>
-  </div>
+  </div> -->
   
 
   </svg>
+    </div>
 
+  {{end}}
 
     </body>
 </html>

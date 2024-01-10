@@ -1,4 +1,3 @@
-// main.go
 package main
 
 import (
@@ -94,9 +93,18 @@ func addPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	server()
-
     http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-
-	savePostsToFile()
+    loadPostsFromFile()
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        if r.Method == "GET" {
+            displayPosts(w)
+        } else if r.Method == "POST" {
+            addPost(w, r)
+        }
+    })
+    err := http.ListenAndServe(":8080", nil)
+    if err != nil {
+        fmt.Println("Erreur lors du démarrage du serveur :", err)
+    }
+    savePostsToFile()
 }
