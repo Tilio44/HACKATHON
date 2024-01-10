@@ -8,6 +8,14 @@
   <header class="header">
     <span id="date-time"></span>
     <span id="random-number"></span>
+    <button class="test" onclick="getWeatherByLocation()">METEO</button>
+
+    <div id="weatherInfo">
+        <p id="temperature"></p>
+        <p id="temperatureMax"></p>
+        <p id="temperatureMin"></p>
+        <img id="weatherIcon">
+    </div>
   </header>
   <div class="Evenement">
     BDS ET BDE
@@ -23,5 +31,6 @@
   
   <script src="../js/horloge.js" defer></script>
   <script src="../js/Random.js" defer></script>
+  <script src="../js/weatherApi.js" defer></script>
 </body>
 </html>
