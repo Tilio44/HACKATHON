@@ -4,15 +4,17 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
 #random-number {
     font-family: Arial, sans-serif; 
     position: absolute;
-    color: white;
+    color: #12F2A4;
     top: 50%;
     left: 10%;
     font-size: 40px; 
     transform: translateY(-50%);
 }
+
 #date-time {
     font-family: Arial, sans-serif; 
     font-size: 40px; 
@@ -20,12 +22,41 @@ body {
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
-    color: white;
+    color: #12F2A4;
     text-align: center;
 }
 
+#weatherIcon {
+    position: absolute;
+    top: 50%; 
+    right: 65%;
+    transform: translate(-50%, -50%); 
+}
+
+#weatherButton {
+    font-family: fantasy; 
+    border-radius: 2em;
+    font-size: 25px; 
+    position: absolute;
+    top: 50%; 
+    right: 10%;
+    transform: translate(-50%, -50%); 
+    color: rgb(255, 255, 255);
+    background-color: #12F2A4;
+    text-align: center;
+}
+
+#weatherInfo {
+    font-family: fantasy;
+    font-size: 18px; 
+    color: #12F2A4;
+    position: absolute;
+    right: 2.5%;
+    top: 5%;
+}
+
 .header {
-    background-color: #f1c40f;
+    background-color: #211e1e;
     padding: 20px;
     text-align: center;
     height: 150px;
@@ -61,3 +92,6 @@ main {
 .ActuM {
     background-color: #e74c3c;
 }
+
+
+
