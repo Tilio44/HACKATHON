@@ -19,7 +19,7 @@ function getYourWeatherATHouse() {
 
 function CalculPositions(positionX, positionY) {
     // Vérifier si les valeurs sont numériques et non négatives
-    if (typeof adjacent !== 'number' || typeof hypotenuse !== 'number' || adjacent < 0 || hypotenuse <= 0) {
+    if (typeof positionX !== 'number' || typeof positionY !== 'number' || positionX < 0 || positionY <= 0) {
         return "Veuillez entrer des valeurs numériques positives";
     }
 
@@ -30,8 +30,7 @@ function CalculPositions(positionX, positionY) {
 const positionX = 3;
 const positionY = 5;
 
-const CalculPosition = calculerCosinus(adjacentSide, hypotenuseLength);
-console.log("Le cosinus de l'angle est:", cosinusAngle);
+const CalculPosition = calculerCosinus(positionX, positionY);
 
 
 
