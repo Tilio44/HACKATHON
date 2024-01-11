@@ -52,7 +52,39 @@
   </div>
   <main>
     <div class="ActuY">
-      {{range .Posts}}
+      {{with index .Posts 0}}
+    <div class="post">
+      <div class='deck'>
+        <div class='card'>
+          <header class='cardHeader'>
+            <i class='fab fa-instagram cardHeader_type'></i>
+            <span class='cardHeader_account'>{{.Author}}<h5>{{.Title}}</h5><small>{{.Date}}</small></span>
+          </header>
+          <div class='cardBody'>
+            <p class='cardText'>{{.Content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    </div>
+    {{with index .Posts 1}}
+    <div class="post">
+      <div class='deck'>
+        <div class='card'>
+          <header class='cardHeader'>
+            <i class='fab fa-instagram cardHeader_type'></i>
+            <span class='cardHeader_account'>{{.Author}}<h5>{{.Title}}</h5><small>{{.Date}}</small></span>
+          </header>
+          <div class='cardBody'>
+            <p class='cardText'>{{.Content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    </div>
+    {{with index .Posts 2}}
     <div class="post">
       <div class='deck'>
         <div class='card'>

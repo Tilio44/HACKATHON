@@ -47,8 +47,6 @@ func actuHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	fmt.Println("http://localhost:8080")
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("../Front/assets"))))
-	jsHandler := http.FileServer(http.Dir("../Front/js"))
-	http.Handle("/js/", http.StripPrefix("/js/", jsHandler))
 	loadPostsFromFile()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
