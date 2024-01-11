@@ -1,0 +1,150 @@
+.deck {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+    margin: 5em auto 3em;
+  }
+  
+  @media (max-width: 705px) {
+    .deck {
+      margin: 4em auto;
+    }
+  }
+  
+  @media (max-width: 550px) {
+    .deck:before {
+      left: 1.5em;
+    }
+  }
+  
+  .card {
+    position: relative;
+    background-color: #666666;
+    padding: 1em;
+    z-index: 5;
+    border-radius: 2px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3);
+    transition: 200ms ease-in-out;
+  }
+  
+  .card + .card {
+    margin-top: 1em;
+  }
+  
+  .card:hover {
+    z-index: 7;
+    transform: scale(1.05);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+  }
+  
+  .card:first-of-type {
+    margin-left: -3em;
+    margin-right: 3em;
+  }
+  
+  @media (max-width: 705px) {
+    .card:first-of-type {
+      margin-left: -1em;
+      margin-right: 1em;
+    }
+  }
+  
+  @media (max-width: 550px) {
+    .card:first-of-type {
+      margin: 0;
+    }
+  }
+  
+  .card:nth-of-type(2) {
+    margin-left: 5em;
+    margin-right: -5em;
+    margin-top: -6em;
+  }
+  
+  @media (max-width: 705px) {
+    .card:nth-of-type(2) {
+      margin-left: 1em;
+      margin-right: -1em;
+      margin-top: 1em;
+    }
+  }
+  
+  @media (max-width: 550px) {
+    .card:nth-of-type(2) {
+      margin: 1em 0 0;
+    }
+  }
+  
+  .card:nth-of-type(3) {
+    margin-top: -2em;
+    margin-left: -1em;
+    margin-right: 1em;
+  }
+  
+  @media (max-width: 705px) {
+    .card:nth-of-type(3) {
+      margin-left: -1em;
+      margin-right: 1em;
+      margin-top: 1em;
+    }
+  
+    .card:nth-of-type(3):after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1em;
+      display: block;
+      border-bottom: 5px solid rgba(192, 57, 43, 0.6);
+    }
+  }
+  
+  @media (max-width: 550px) {
+    .card:nth-of-type(3) {
+      margin: 1em 0 0;
+    }
+  }
+  
+  .cardHeader {
+    display: grid;
+    grid-template-columns: 36px auto 100px;
+    align-items: center;
+    text-transform: uppercase;
+  }
+  
+  .cardHeader .cardHeader_type {
+    color: #ffd433;
+    margin: 10px;
+  }
+  
+  .cardHeader .cardHeader_account {
+    color: #03a1e4;
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .cardHeader .cardHeader_date {
+    margin: 10px;
+    color: #08a7eb;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-align: right;
+  }
+  
+  .cardBody {
+    display: flex;
+    margin: 0 10px 10px;
+  }
+  
+  .cardBody .cardText {
+    margin: 0 10px 0 0;
+    white-space: pre-line;
+    color: #c0c3d7;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .body .deck .card .cardHeader {
+    background-color: red;
+  }
