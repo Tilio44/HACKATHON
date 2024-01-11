@@ -19,7 +19,7 @@
   
   .card {
     position: relative;
-    background-color: #666666;
+    background-color: #12F2A4;
     padding: 1em;
     z-index: 5;
     border-radius: 2px;
@@ -118,7 +118,7 @@
   }
   
   .cardHeader .cardHeader_account {
-    color: #03a1e4;
+    color: #776a6a;
     font-size: 0.85em;
     font-weight: 600;
     letter-spacing: 1px;
@@ -126,7 +126,7 @@
   
   .cardHeader .cardHeader_date {
     margin: 10px;
-    color: #08a7eb;
+    color: #363232;
     font-size: 0.85em;
     font-weight: 600;
     text-align: right;
@@ -140,7 +140,7 @@
   .cardBody .cardText {
     margin: 0 10px 0 0;
     white-space: pre-line;
-    color: #c0c3d7;
+    color: #211e1e;
     font-weight: 400;
     line-height: 1.5;
   }
