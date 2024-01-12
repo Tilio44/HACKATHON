@@ -14,6 +14,7 @@ function getYourWeatherATHouse() {
         console.log("La géolocalisation n'est pas disponivle pour votre maison");
     }
 }
+//toujours pas :)
 function anticonstitutionnellement(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
