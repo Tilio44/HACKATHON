@@ -47,7 +47,3 @@ Pour démarrer le projet, suivez ces étapes simples :
 
 5. Ensuite cliquer sur  boutton "ACTU!" puis porfitez des actulaités !
 
-
-
-
-

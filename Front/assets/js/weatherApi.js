@@ -1,5 +1,3 @@
-//gestion de la météo
-
 function getWeatherByLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(anticonstitutionnellement, error);
@@ -16,7 +14,6 @@ function getYourWeatherATHouse() {
         console.log("La géolocalisation n'est pas disponivle pour votre maison");
     }
 }
-//hello tilio bien vu la fonction anticonstitutionnellement
 function anticonstitutionnellement(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -55,7 +52,6 @@ function anticonstitutionnellement(position) {
             console.log("Erreur lors de la récupération des données :", error);
         });
 }
-// les erreurs du navigation seront retournées dans l'avion
 function error(error) {
     console.log('Erreur de géolocalisation : ', error);
 }
