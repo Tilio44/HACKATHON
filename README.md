@@ -1,6 +1,6 @@
 # HACKATHON:
 
-### membres du groupe:
+### Membres du groupe:
 
 * Tom
 * Matthias
@@ -22,7 +22,7 @@ La rubrique "Actu" offre une variété de contenus, comprenant :
 
 ## Technologies Utilisées
 
-L'équipe a exploité diverses technologies pour créer une plateforme robuste et réactive :
+L'équipe a exploité diverses technologies :
 - **Golang**: Langage de programmation backend pour une gestion efficace des données.
 - **JavaScript (Js)**: Utilisé pour des interactions dynamiques et des mises à jour en temps réel.
 - **HTML/CSS**: La base pour une interface utilisateur esthétique et conviviale.
