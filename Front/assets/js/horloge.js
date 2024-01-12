@@ -1,9 +1,9 @@
 //  FUNCTION HORLOGE //                                                                                                                                                                                                                             j'aime le veau
-function Eure() {
+function EureetLoire() {
   var currentDate = new Date();
   var dateTimeString = currentDate.toLocaleString();
 
   document.getElementById('date-time').innerHTML = dateTimeString;
 }
 
-setInterval(Eure, 1000);
+setInterval(EureetLoire, 1000);

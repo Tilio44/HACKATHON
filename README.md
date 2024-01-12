@@ -48,3 +48,5 @@ go run .\serveur.go
 
 puis ce rendre sur:
 http://localhost:8080
+
+Ensuite cliquer sur le jolie boutton "ACTU!" puis porfitez des actulaités !!!
