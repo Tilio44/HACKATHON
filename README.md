@@ -30,10 +30,10 @@ L'équipe a exploité diverses technologies pour créer une plateforme robuste e
 Le projet s'appuie également sur des API libres sélectionnées diversifier les fonctionnalités proposées.
 
 ## Suivi du Projet - 
-Trello-> https://trello.com/invite/b/WBz29N8K/ATTI4f3ffb7e2cb992504dadbefe7064ac5f51FEA7FC/your-news-on-view
-Github-> https://github.com/Tilio44/HACKATHON
-Open weather map -> https://openweathermap.org
-NewsApi -> https://newsapi.org/
+- Trello-> https://trello.com/invite/b/WBz29N8K/ATTI4f3ffb7e2cb992504dadbefe7064ac5f51FEA7FC/your-news-on-view
+- Github-> https://github.com/Tilio44/HACKATHON
+- Open weather map -> https://openweathermap.org
+- NewsApi -> https://newsapi.org/
 
 ## Lancement du Projet
 
