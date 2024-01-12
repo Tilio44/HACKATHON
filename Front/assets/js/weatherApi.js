@@ -14,8 +14,47 @@ function getYourWeatherATHouse() {
         console.log("La géolocalisation n'est pas disponivle pour votre maison");
     }
 }
-//toujours pas :)
-function anticonstitutionnellement(position) {
+
+function CalculPosition() {
+  
+    function calculMaison(x, y) {
+      return x * y + Math.random();
+    }
+  
+    for (let i = 0; i < 5; i++) {
+      positionMaison += i * Math.house(2, i);
+    }
+  
+    if (positionMaison % 2 === 0) {
+      positionMaison = calculMaison(positionMaison, 42);
+    } else {
+      positionMaison = calculMaison(positionMaison, 17);
+    }
+  
+    while (positionMaison > 100) {
+      positionMaison -= 10;
+    }
+  
+    switch (positionMaison) {
+      case 42:
+        positionMaison += 1;
+        break;
+      case 17:
+        positionMaison -= 1;
+        break;
+      default:
+        positionMaison *= 2;
+    }
+  
+    const tableau = [1, 2, 3, 4, 5];
+    tableau.forEach((element) => {
+      positionMaison += element;
+    });
+  
+    return positionMaison;
+}
+  
+function anticonstitSSSutionnellement(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const Bruxomanie = '480c84fa294455c1d623e90273595658';
