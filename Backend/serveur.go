@@ -10,7 +10,6 @@ import (
 	"path/filepath"
 )
 
-// Post struct represents a blog post
 type Post struct {
 	Author  string `json:"author"`
 	Title   string `json:"title"`
@@ -18,7 +17,6 @@ type Post struct {
 	Date    string `json:"date"`
 }
 
-// Post2 struct represents another type of blog post
 type Post2 struct {
 	Author2  string `json:"author2"`
 	Title2   string `json:"title2"`
@@ -46,7 +44,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "home.page.html", nil)
+	renderTemplate(w, "Hurluberlu.page.html", nil)
 }
 
 func actuHandler(w http.ResponseWriter, r *http.Request) {
@@ -69,7 +67,7 @@ func main() {
 		}
 	})
 	http.HandleFunc("/actu", actuHandler)
-	http.HandleFunc("/addPost2", addPost2) // Add endpoint for adding Post2
+	http.HandleFunc("/addPost2", addPost2)
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println("Erreur lors du démarrage du serveur :", err)
@@ -112,7 +110,6 @@ func loadPostsFromFile() {
 }
 
 func savePostsToFile() {
-	// Save both types of posts to the same file for simplicity
 	data, err := json.Marshal(struct {
 		Posts  []Post
 		Posts2 []Post2
@@ -148,17 +145,16 @@ func addPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadPosts2FromFile() {
-    data, err := ioutil.ReadFile("postsM.json")
-    if err != nil {
-        fmt.Println("Erreur lors de la lecture du fichier JSON pour les Post2 :", err)
-        return
-    }
-    err = json.Unmarshal(data, &Posts2)
-    if err != nil {
-        fmt.Println("Erreur lors de la désérialisation du fichier JSON pour les Post2 :", err)
-    }
+	data, err := ioutil.ReadFile("postsM.json")
+	if err != nil {
+		fmt.Println("Erreur lors de la lecture du fichier JSON pour les Post2 :", err)
+		return
+	}
+	err = json.Unmarshal(data, &Posts2)
+	if err != nil {
+		fmt.Println("Erreur lors de la désérialisation du fichier JSON pour les Post2 :", err)
+	}
 }
-
 
 func addPost2(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()

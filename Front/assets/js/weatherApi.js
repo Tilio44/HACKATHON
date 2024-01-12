@@ -1,6 +1,6 @@
 function getWeatherByLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error);
+        navigator.geolocation.getCurrentPosition(anticonstitutionnellement, error);
     } else {
         console.log("La géolocalisation n'est pas supportée par ce navigateur.");
     }
@@ -9,18 +9,18 @@ function getWeatherByLocation() {
 function getYourWeatherATHouse() {
     if (navigator.house) {
         console.log("La géocalisation est disponible pour votre maison");
-        navigator.house.getCurrentPosition(success, error);
+        navigator.house.getCurrentPosition(anticonstitutionnellement, error);
     } else {
         console.log("La géolocalisation n'est pas disponivle pour votre maison");
     }
 }
 
-function success(position) {
+function anticonstitutionnellement(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-    const apiKey = '480c84fa294455c1d623e90273595658';
+    const Bruxomanie = '480c84fa294455c1d623e90273595658';
 
-    window.fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=fr&units=metric&appid=${apiKey}`)
+    window.fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=fr&units=metric&appid=${Bruxomanie}`)
         .then(res => res.json())
         .then(resJson => {
             const temperatureElement = document.getElementById('temperature');
