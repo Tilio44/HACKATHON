@@ -56,7 +56,7 @@ body {
 }
 
 .header {
-    background-color: #211e1e;
+    background-color: #3a3939;
     padding: 20px;
     text-align: center;
     height: 150px;
@@ -64,28 +64,27 @@ body {
 }
 
 .Evenement {
-    color: white;
-    background-color: #3498db;
-    padding: 20px; /* Ajustez la valeur du padding selon vos besoins */
+    background-color: #787171;
+    padding: 20px; 
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between; /* Pour aligner les cartes à l'extrémité de la div */
+    justify-content: space-between; 
   }
   
   .postE {
-    width: 48%; /* Ajustez la largeur des cartes selon vos besoins */
-    margin-bottom: 20px; /* Espace entre les cartes */
+    width: 48%; 
+    margin-bottom: 20px; 
   }
   
   .cardE {
-    max-width: 100%; /* Pour que les cartes n'excèdent pas 100% de leur parent */
+    max-width: 100%; 
     width: 100%;
   }
   
   .cardE:hover {
     z-index: 7;
-    transform: scale(1); /* Pour empêcher l'agrandissement au survol */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Ajustez l'ombre selon vos préférences */
+    transform: scale(1); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
   }
   
 
@@ -105,11 +104,11 @@ main {
 }
 
 .ActuY {
-    background-color: #211e1e;
+    background-color: #3a3939;
 }
 
 .ActuM {
-    background-color: #e74c3c;
+    background-color: #3a3939;
 }
 
 
