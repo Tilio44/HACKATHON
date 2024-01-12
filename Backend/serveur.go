@@ -18,7 +18,16 @@ type Post struct {
 	Date    string `json:"date"`
 }
 
+// Post2 struct represents another type of blog post
+type Post2 struct {
+	Author2  string `json:"author2"`
+	Title2   string `json:"title2"`
+	Content2 string `json:"content2"`
+	Date2    string `json:"date2"`
+}
+
 var Posts []Post
+var Posts2 []Post2
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	var myCache, err = createTemplateCache()
@@ -41,13 +50,17 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func actuHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "homeActu.page.html", struct{ Posts []Post }{Posts})
+	renderTemplate(w, "homeActu.page.html", struct {
+		Posts  []Post
+		Posts2 []Post2
+	}{Posts, Posts2})
 }
 
 func main() {
 	fmt.Println("http://localhost:8080")
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("../Front/assets"))))
 	loadPostsFromFile()
+	loadPosts2FromFile()
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			homeHandler(w, r)
@@ -56,6 +69,7 @@ func main() {
 		}
 	})
 	http.HandleFunc("/actu", actuHandler)
+	http.HandleFunc("/addPost2", addPost2) // Add endpoint for adding Post2
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		fmt.Println("Erreur lors du démarrage du serveur :", err)
@@ -98,7 +112,11 @@ func loadPostsFromFile() {
 }
 
 func savePostsToFile() {
-	data, err := json.Marshal(Posts)
+	// Save both types of posts to the same file for simplicity
+	data, err := json.Marshal(struct {
+		Posts  []Post
+		Posts2 []Post2
+	}{Posts, Posts2})
 	if err != nil {
 		fmt.Println("Erreur lors de la sérialisation en JSON :", err)
 		return
@@ -124,6 +142,39 @@ func addPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	Posts = append(Posts, newPost)
+	savePostsToFile()
+
+	fmt.Fprintf(w, "Post ajouté avec succès:\nTitle: %s\nContent: %s\nDate: %s\n", title, content, date)
+}
+
+func loadPosts2FromFile() {
+    data, err := ioutil.ReadFile("postsM.json")
+    if err != nil {
+        fmt.Println("Erreur lors de la lecture du fichier JSON pour les Post2 :", err)
+        return
+    }
+    err = json.Unmarshal(data, &Posts2)
+    if err != nil {
+        fmt.Println("Erreur lors de la désérialisation du fichier JSON pour les Post2 :", err)
+    }
+}
+
+
+func addPost2(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	author := r.Form.Get("author2")
+	title := r.Form.Get("title2")
+	content := r.Form.Get("content2")
+	date := r.Form.Get("date2")
+
+	newPost2 := Post2{
+		Author2:  author,
+		Title2:   title,
+		Content2: content,
+		Date2:    date,
+	}
+
+	Posts2 = append(Posts2, newPost2)
 	savePostsToFile()
 
 	fmt.Fprintf(w, "Post ajouté avec succès:\nTitle: %s\nContent: %s\nDate: %s\n", title, content, date)
