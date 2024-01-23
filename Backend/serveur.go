@@ -2,34 +2,29 @@ package main
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"html/template"
-	"io/ioutil"
 	"net/http"
 	"path/filepath"
 )
 
-
-// déclaration des structures pour les posts
-
-type Post struct {
-	Author  string `json:"author"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
-	Date    string `json:"date"`
+// Exercise représente un exercice
+type Exercise struct {
+	Name string `json:"Name"`
 }
 
-type Post2 struct {
-	Author2  string `json:"author2"`
-	Title2   string `json:"title2"`
-	Content2 string `json:"content2"`
-	Date2    string `json:"date2"`
+// Workout représente une séance d'entraînement
+type Workout struct {
+	Type      string     `json:"Type"`
+	Exercises []Exercise `json:"Exercises"`
 }
 
-var Posts []Post
-var Posts2 []Post2
-
+var workouts = map[string][]Exercise{
+	"jambes": {Exercise{"Squat"}, Exercise{"Leg Press"}, Exercise{"Lunges"}, Exercise{"Leg Curls"}, Exercise{"Calf Raises"}},
+	"pecs":   {Exercise{"Bench Press"}, Exercise{"Incline Press"}, Exercise{"Flyes"}, Exercise{"Push-ups"}, Exercise{"Dips"}},
+	"dos":    {Exercise{"Deadlift"}, Exercise{"Pull-ups"}, Exercise{"Bent Over Rows"}, Exercise{"Lat Pulldowns"}, Exercise{"Face Pulls"}},
+	// Ajoutez d'autres types de séances avec leurs exercices associés
+}
 
 func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	var myCache, err = createTemplateCache()
@@ -47,19 +42,21 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p interface{}) {
 	buffer.WriteTo(w)
 }
 
-// fonction pour les routes
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "Hurluberlu.page.html", nil)
 }
 
-func actuHandler(w http.ResponseWriter, r *http.Request) {
-	renderTemplate(w, "homeActu.page.html", struct {
-		Posts  []Post
-		Posts2 []Post2
-	}{Posts, Posts2})
+func workoutHandler(w http.ResponseWriter, r *http.Request) {
+	workoutType := r.URL.Path[len("/workout/"):]
+	exercises, exists := workouts[workoutType]
+	if !exists {
+		http.Error(w, "Type de séance de sport non trouvé", http.StatusNotFound)
+		return
+	}
+
+	workout := Workout{Type: workoutType, Exercises: exercises}
+	renderTemplate(w, "workout.tmpl", workout)
 }
-
-
 
 func createTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
@@ -83,103 +80,13 @@ func createTemplateCache() (map[string]*template.Template, error) {
 	return myCache, nil
 }
 
-
-
-func savePostsToFile() {
-	data, err := json.Marshal(struct {
-		Posts  []Post
-		Posts2 []Post2
-	}{Posts, Posts2})
-	if err != nil {
-		fmt.Println("Erreur lors de la sérialisation en JSON :", err)
-		return
-	}
-	err = ioutil.WriteFile("posts.json", data, 0644)
-	if err != nil {
-		fmt.Println("Erreur lors de l'écriture dans le fichier JSON :", err)
-	}
-}
-// ajout des pommes de terre dans le fichier JSON
-func addPost(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	author := r.Form.Get("author")
-	title := r.Form.Get("title")
-	content := r.Form.Get("content")
-	date := r.Form.Get("date")
-
-	newPost := Post{
-		Author:  author,
-		Title:   title,
-		Content: content,
-		Date:    date,
-	}
-
-	Posts = append(Posts, newPost)
-	savePostsToFile()
-
-	fmt.Fprintf(w, "Post ajouté avec succès:\nTitle: %s\nContent: %s\nDate: %s\n", title, content, date)
-}
-func addPost2(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	author := r.Form.Get("author2")
-	title := r.Form.Get("title2")
-	content := r.Form.Get("content2")
-	date := r.Form.Get("date2")
-
-	newPost2 := Post2{
-		Author2:  author,
-		Title2:   title,
-		Content2: content,
-		Date2:    date,
-	}
-
-	Posts2 = append(Posts2, newPost2)
-	savePostsToFile()
-
-	fmt.Fprintf(w, "Post ajouté avec succès:\nTitle: %s\nContent: %s\nDate: %s\n", title, content, date)
-}
-func loadPostsFromFile() {
-	data, err := ioutil.ReadFile("posts.json")
-	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier JSON :", err)
-		return
-	}
-	err = json.Unmarshal(data, &Posts)
-	if err != nil {
-		fmt.Println("Erreur lors de la désérialisation du fichier JSON :", err)
-	}
-}
-// chargement des pommes de terre depuis le fichier JSON
-func loadPosts2FromFile() {
-	data, err := ioutil.ReadFile("postsM.json")
-	if err != nil {
-		fmt.Println("Erreur lors de la lecture du fichier JSON pour les Post2 :", err)
-		return
-	}
-	err = json.Unmarshal(data, &Posts2)
-	if err != nil {
-		fmt.Println("Erreur lors de la désérialisation du fichier JSON pour les Post2 :", err)
-	}
-}
-
-
 func main() {
 	fmt.Println("http://localhost:8080")
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("../Front/assets"))))
-	loadPostsFromFile()
-	loadPosts2FromFile()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "GET" {
-			homeHandler(w, r)
-		} else if r.Method == "POST" {
-			addPost(w, r)
-		}
-	})
-	http.HandleFunc("/actu", actuHandler)
-	http.HandleFunc("/addPost2", addPost2)
-	err := http.ListenAndServe(":8080", nil)
-	if err != nil {
-		fmt.Println("Erreur lors du démarrage du serveur :", err)
-	}
-	savePostsToFile()
+
+	http.HandleFunc("/", homeHandler)
+	http.HandleFunc("/workout/", workoutHandler)
+	// Ajoutez d'autres gestionnaires pour les différentes pages
+
+	http.ListenAndServe(":8080", nil)
 }
